@@ -86,25 +86,34 @@ export default function ComingSoon() {
       <WaitlistInput />
 
       {/* Bento Grid - Luxury Monochrome Version */}
-   {/* Micro-Grid Section with Labels */}
+   {/* Micro-Grid Section with Compelling CTA */}
       <div className="max-w-2xl w-full px-4 mb-12">
-        <div className="flex items-center justify-between mb-8 opacity-50">
-          <span className="h-[1px] flex-1 bg-zinc-200 dark:bg-zinc-800" />
-          <span className="px-4 text-[9px] font-black uppercase tracking-[0.5em] text-zinc-500">
-            Official Channels
-          </span>
-          <span className="h-[1px] flex-1 bg-zinc-200 dark:bg-zinc-800" />
+        <div className="flex flex-col items-center mb-10 text-center">
+          <motion.span 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-500 mb-2"
+          >
+            Behind the Scenes
+          </motion.span>
+          <h3 className="text-xl md:text-2xl font-black italic tracking-tighter text-black dark:text-white uppercase">
+            Explore Our Universe
+          </h3>
+          <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500 mt-2">
+            See how we’re redefining Events in Nairobi
+          </p>
         </div>
 
+        {/* The Grid stays the same but feels more important now */}
         <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-8 gap-x-4 gap-y-6">
-          <SocialCard href="#" icon={Instagram} label="Instagram" hoverGlow="#E1306C" />
-          <SocialCard href="#" icon={Video} label="TikTok" hoverGlow="#00f2ea" />
-          <SocialCard href="#" icon={MessageCircle} label="WhatsApp" hoverGlow="#25D366" />
-          <SocialCard href="#" icon={Ghost} label="Snap" hoverGlow="#FFFC00" />
-          <SocialCard href="#" icon={AtSign} label="Threads" hoverGlow="#ffffff" />
-          <SocialCard href="#" icon={Youtube} label="You Tube" hoverGlow="#FF0000" />
-          <SocialCard href="#" icon={Send} label="Face Book" hoverGlow="#1877F2" />
-          <SocialCard href="mailto:info@eventsdistrict.com" icon={Mail} label="Email" hoverGlow="#9333ea" />
+          <SocialCard href="YOUR_LINK" icon={Instagram} label="Stories" hoverGlow="#E1306C" />
+          <SocialCard href="YOUR_LINK" icon={Video} label="Vibes" hoverGlow="#00f2ea" />
+          <SocialCard href="YOUR_LINK" icon={MessageCircle} label="Direct" hoverGlow="#25D366" />
+          <SocialCard href="YOUR_LINK" icon={Ghost} label="Moments" hoverGlow="#FFFC00" />
+          <SocialCard href="YOUR_LINK" icon={AtSign} label="Updates" hoverGlow="#ffffff" />
+          <SocialCard href="YOUR_LINK" icon={Youtube} label="Cinematics" hoverGlow="#FF0000" />
+          <SocialCard href="YOUR_LINK" icon={Send} label="Connect" hoverGlow="#1877F2" />
+          <SocialCard href="mailto:info@eventsdistrict.com" icon={Mail} label="Inquire" hoverGlow="#9333ea" />
         </div>
       </div>
 

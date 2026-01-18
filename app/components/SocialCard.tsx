@@ -29,9 +29,20 @@ const SocialCard = ({ href, icon: Icon, label, hoverGlow, className = "" }: any)
         <Icon 
           size={18} 
           strokeWidth={1.5} 
-          className="text-zinc-400 transition-all duration-500"
+          className="relative z-10 text-zinc-400 transition-all duration-500"
           style={{ color: isHovered ? hoverGlow : '' }}
         />
+
+        {/* --- ADDED THE ARROW HERE --- */}
+        <motion.div
+          animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.5 }}
+          className="absolute bottom-1.5 right-1.5 z-20"
+        >
+          <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke={hoverGlow} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7 17l9.2-9.2M17 17V7H7" />
+          </svg>
+        </motion.div>
+        {/* ---------------------------- */}
       </div>
 
       {/* Tiny Label */}
