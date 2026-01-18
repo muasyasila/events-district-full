@@ -86,30 +86,26 @@ export default function ComingSoon() {
       <WaitlistInput />
 
       {/* Bento Grid - Luxury Monochrome Version */}
-    
-      <div className="max-w-xl w-full px-4">
-        <div className="flex items-center justify-between mb-6">
+   {/* Micro-Grid Section with Labels */}
+      <div className="max-w-2xl w-full px-4 mb-12">
+        <div className="flex items-center justify-between mb-8 opacity-50">
           <span className="h-[1px] flex-1 bg-zinc-200 dark:bg-zinc-800" />
-          <span className="px-4 text-[9px] font-black uppercase tracking-[0.4em] text-zinc-400">
-            Connect
+          <span className="px-4 text-[9px] font-black uppercase tracking-[0.5em] text-zinc-500">
+            Official Channels
           </span>
           <span className="h-[1px] flex-1 bg-zinc-200 dark:bg-zinc-800" />
         </div>
 
-        <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
-          <SocialCard href="#" icon={Instagram} hoverGlow="#E1306C" />
-          <SocialCard href="#" icon={Video} hoverGlow="#00f2ea" />
-          <SocialCard href="#" icon={MessageCircle} hoverGlow="#25D366" />
-          <SocialCard href="#" icon={Ghost} hoverGlow="#FFFC00" />
-          <SocialCard href="#" icon={AtSign} hoverGlow="#ffffff" />
-          <SocialCard href="#" icon={Youtube} hoverGlow="#FF0000" />
-          <SocialCard href="#" icon={Send} hoverGlow="#1877F2" />
-          <SocialCard href="mailto:info@eventsdistrict.com" icon={Mail} hoverGlow="#9333ea" />
+        <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-8 gap-x-4 gap-y-6">
+          <SocialCard href="#" icon={Instagram} label="Instagram" hoverGlow="#E1306C" />
+          <SocialCard href="#" icon={Video} label="TikTok" hoverGlow="#00f2ea" />
+          <SocialCard href="#" icon={MessageCircle} label="WhatsApp" hoverGlow="#25D366" />
+          <SocialCard href="#" icon={Ghost} label="Snap" hoverGlow="#FFFC00" />
+          <SocialCard href="#" icon={AtSign} label="Threads" hoverGlow="#ffffff" />
+          <SocialCard href="#" icon={Youtube} label="You Tube" hoverGlow="#FF0000" />
+          <SocialCard href="#" icon={Send} label="Face Book" hoverGlow="#1877F2" />
+          <SocialCard href="mailto:info@eventsdistrict.com" icon={Mail} label="Email" hoverGlow="#9333ea" />
         </div>
-
-        <p className="mt-8 text-center text-[10px] text-zinc-500 font-bold uppercase tracking-widest opacity-50">
-          Private Events • Corporate • Luxury
-        </p>
       </div>
 
       <footer className="mt-20 pb-10 text-[10px] font-bold tracking-[0.3em] uppercase opacity-30 dark:text-white text-black text-center">
