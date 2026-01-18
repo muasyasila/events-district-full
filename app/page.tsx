@@ -6,132 +6,14 @@ import {
   Mail, Video, Moon, Sun, Calendar, AtSign 
 } from "lucide-react";
 
-// 1. WhatsApp Bubble Component
-const WhatsAppBubble = () => {
-  return (
-    <motion.a
-      href="https://wa.me/+254768842000"
-      target="_blank"
-      initial={{ scale: 0, opacity: 0, y: 20 }}
-      animate={{ scale: 1, opacity: 1, y: 0 }}
-      transition={{ delay: 2, type: "spring", stiffness: 260, damping: 20 }}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      className="fixed bottom-6 left-6 z-[100] flex items-center gap-3 bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 p-2 pr-6 rounded-full shadow-2xl cursor-pointer group"
-    >
-      <div className="relative">
-        <div className="bg-[#25D366] p-3 rounded-full text-white shadow-lg">
-          <MessageCircle size={24} fill="currentColor" />
-        </div>
-        <span className="absolute top-0 right-0 block h-3 w-3 rounded-full bg-green-500 ring-2 ring-white dark:ring-zinc-900 animate-pulse" />
-      </div>
-      
-      <div className="flex flex-col">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Ask us anything</span>
-        <span className="text-sm font-black text-black dark:text-white">Chat with an Expert</span>
-      </div>
-    </motion.a>
-  );
-};
+// Import our new boxes!
+import SocialCard from "./components/SocialCard";
+import WhatsAppBubble from "./components/WhatsAppBubble";
+import WaitlistInput from "./components/WaitlistInput";
+import ScrollingTicker from "./components/ScrollingTicker";
+import BackgroundLayers from "./components/BackgroundLayers";
+import TimeGreeting from "./components/TimeGreeting";
 
-// 2. Glassmorphism Waitlist Component
-const WaitlistInput = () => {
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert(`Success! We'll notify ${email} soon.`);
-    setEmail("");
-  };
-
-  return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.5 }}
-      className="w-full max-w-md mx-auto mb-16 px-4"
-    >
-      <form onSubmit={handleSubmit} className="relative group">
-        <input
-          type="email"
-          required
-          placeholder="Join the VIP Waitlist..."
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-6 py-4 bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl text-black dark:text-white placeholder:text-zinc-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 shadow-2xl"
-        />
-        <button 
-          type="submit"
-          className="absolute right-2 top-2 bottom-2 px-6 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl transition-all active:scale-95 text-xs uppercase tracking-widest"
-        >
-          Join
-        </button>
-      </form>
-      <p className="text-[10px] text-zinc-500 uppercase tracking-[0.2em] mt-3 text-center">
-        Be the first to know when we launch
-      </p>
-    </motion.div>
-  );
-};
-
-// 3. Social Card Component
-const SocialCard = ({ href, icon: Icon, label, bgColor, textColor = "text-white", className = "" }: any) => {
-  const [rotate, setRotate] = useState({ x: 0, y: 0 });
-
-  const onMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setRotate({ x: y * -20, y: x * 20 });
-  };
-
-  return (
-    <motion.a
-      href={href}
-      target="_blank"
-      onMouseMove={onMouseMove}
-      onMouseLeave={() => setRotate({ x: 0, y: 0 })}
-      animate={{ rotateX: rotate.x, rotateY: rotate.y }}
-      whileTap={{ scale: 0.95 }}
-      style={{ perspective: 1000 }}
-      className={`flex flex-col items-center justify-center p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] ${bgColor} ${textColor} shadow-2xl transition-all border border-black/5 dark:border-white/10 ${className}`}
-    >
-      <motion.div animate={{ y: rotate.x * 0.5, x: rotate.y * 0.5 }}>
-        <Icon size={32} strokeWidth={2.5} className={textColor} />
-      </motion.div>
-      <span className={`mt-3 font-black text-xs md:text-sm uppercase tracking-[0.2em] text-center ${textColor}`}>
-        {label}
-      </span>
-    </motion.a>
-  );
-};
-
-// 4. Scrolling Ticker Component
-const ScrollingTicker = () => {
-  const services = [
-    "Corporate Events", "Weddings", "Private Parties", 
-    "Product Launches", "Full Service Planning", "Sound & Lighting",
-    "Decor & Design", "Photography", "Catering"
-  ];
-
-  return (
-    <div className="w-full bg-black dark:bg-white overflow-hidden py-3 flex border-y border-purple-500/30">
-      <motion.div
-        animate={{ x: [0, -1000] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        className="flex whitespace-nowrap gap-10"
-      >
-        {[...services, ...services].map((service, index) => (
-          <span key={index} className="text-white dark:text-black font-black text-xs uppercase tracking-[0.4em] flex items-center">
-            {service} <span className="ml-10 text-purple-500">✦</span>
-          </span>
-        ))}
-      </motion.div>
-    </div>
-  );
-};
-
-// 5. Main Page Component
 export default function ComingSoon() {
   const [darkMode, setDarkMode] = useState(true);
 
@@ -169,8 +51,9 @@ export default function ComingSoon() {
       </div>
 
       {/* Hero Section */}
-      <div className="text-center mb-16 px-4">
-        <motion.h2 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.85] mb-8 dark:text-white text-black">
+      <div className="text-center mb-16 px-4 text-black dark:text-white">
+        <TimeGreeting />
+        <motion.h2 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.85] mb-8">
           COMING <br /> SOON
         </motion.h2>
 
@@ -184,7 +67,6 @@ export default function ComingSoon() {
         <p className="text-zinc-500 dark:text-zinc-400 font-medium text-lg italic">Reach out via our socials below.</p>
       </div>
 
-      {/* THE WAITLIST INPUT */}
       <WaitlistInput />
 
       {/* Bento Grid */}
@@ -192,29 +74,23 @@ export default function ComingSoon() {
         <div className="col-span-2">
           <SocialCard href="#" icon={Instagram} label="Instagram" bgColor="bg-gradient-to-br from-[#833ab4] via-[#fd1d1d] to-[#fcb045]" />
         </div>
-        <SocialCard href="#" icon={Video} label="TikTok" bgColor="bg-zinc-950" textColor="text-white!" />
+        <SocialCard href="#" icon={Video} label="TikTok" bgColor="bg-zinc-950" />
         <SocialCard href="#" icon={MessageCircle} label="WhatsApp" bgColor="bg-[#25D366]" />
-        <SocialCard href="#" icon={Ghost} label="Snapchat" bgColor="bg-[#FFFC00]" textColor="text-black!" />
-        <SocialCard href="#" icon={AtSign} label="Threads" bgColor="bg-zinc-900" textColor="text-white!" />
+        <SocialCard href="#" icon={Ghost} label="Snapchat" bgColor="bg-[#FFFC00]" textColor="text-black" />
+        <SocialCard href="#" icon={AtSign} label="Threads" bgColor="bg-zinc-900" />
         <SocialCard href="#" icon={Youtube} label="YouTube" bgColor="bg-[#FF0000]" />
         <SocialCard href="#" icon={Send} label="Facebook" bgColor="bg-[#1877F2]" />
         <div className="col-span-2 md:col-span-4 mt-2">
-          <SocialCard href="mailto:info@eventsdistrict.com" icon={Mail} label="Get in Touch via Email" bgColor="bg-zinc-100 dark:bg-zinc-800" textColor="text-zinc-800! dark:text-white!" />
+          <SocialCard href="mailto:info@eventsdistrict.com" icon={Mail} label="Get in Touch via Email" bgColor="bg-zinc-100 dark:bg-zinc-800" textColor="text-zinc-800 dark:text-white" />
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="mt-20 pb-10 text-[10px] font-bold tracking-[0.3em] uppercase opacity-30 dark:text-white text-black text-center">
         © 2026 Events District
       </footer>
 
-      {/* Background Extras */}
-      <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none bg-white dark:bg-[#0a0a0a]">
-        <motion.div animate={{ x: [-40, 40, -40], y: [-40, 40, -40], scale: [1, 1.2, 1] }} transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }} className="absolute -top-[10%] -left-[10%] w-[70%] h-[70%] bg-purple-600/30 dark:bg-purple-900/40 rounded-full blur-[120px]" />
-        <motion.div animate={{ x: [40, -40, 40], y: [40, -40, 40], scale: [1, 1.3, 1] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} className="absolute -bottom-[10%] -right-[10%] w-[70%] h-[70%] bg-blue-600/20 dark:bg-blue-900/30 rounded-full blur-[150px]" />
-        <div className="fixed inset-0 z-[60] pointer-events-none opacity-[0.04] dark:opacity-[0.07] mix-blend-overlay" style={{ backgroundImage: `url('https://grainy-gradients.vercel.app/noise.svg')`, filter: 'contrast(120%) brightness(120%)' }} />
-      </div>
-
+      {/* Background & Extras */}
+      <BackgroundLayers />
       <WhatsAppBubble />
     </main>
   );
