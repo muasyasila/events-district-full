@@ -1,65 +1,151 @@
-import Image from "next/image";
+"use client";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { 
+  Instagram, Youtube, MessageCircle, Send, Ghost, 
+  Mail, Video, Moon, Sun, Calendar, AtSign 
+} from "lucide-react";
 
-export default function Home() {
+// Updated SocialCard to accept a custom text color class
+const SocialCard = ({ href, icon: Icon, label, bgColor, textColor = "text-white", className = "" }: any) => (
+  <motion.a
+    href={href}
+    target="_blank"
+    whileHover={{ y: -5, scale: 1.01 }}
+    whileTap={{ scale: 0.98 }}
+    className={`flex flex-col items-center justify-center p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] ${bgColor} ${textColor} shadow-xl transition-all border border-black/5 dark:border-white/10 ${className}`}
+  >
+    <Icon size={32} strokeWidth={2.5} className={textColor} />
+    <span className={`mt-3 font-black text-xs md:text-sm uppercase tracking-[0.2em] text-center ${textColor}`}>
+        {label}
+    </span>
+  </motion.a>
+);
+
+export default function ComingSoon() {
+  const [darkMode, setDarkMode] = useState(true);
+
+  useEffect(() => {
+    if (darkMode) document.documentElement.classList.add('dark');
+    else document.documentElement.classList.remove('dark');
+  }, [darkMode]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="min-h-screen w-full flex flex-col items-center py-12 px-4 md:px-6 bg-white dark:bg-[#0a0a0a] transition-colors duration-500">
+      
+      {/* 1. DARK MODE TOGGLE */}
+      <div className="fixed top-6 right-6 z-50">
+        <button 
+          onClick={() => setDarkMode(!darkMode)}
+          className="p-3 rounded-full bg-zinc-100 dark:bg-zinc-800 border border-black/10 dark:border-white/10 shadow-lg cursor-pointer"
+        >
+          {darkMode ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-zinc-600" />}
+        </button>
+      </div>
+
+      {/* 2. CENTERED LOGO - Adaptive Colors */}
+      <motion.div 
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="bg-black dark:bg-white border-[3px] border-black px-6 py-3 shadow-[6px_6px_0px_0px_rgba(147,51,234,0.5)] mb-12"
+      >
+        <h1 className="text-white dark:text-black text-xl md:text-3xl font-black italic tracking-tighter uppercase">
+          EVENTS DISTRICT
+        </h1>
+      </motion.div>
+
+      {/* 3. HERO TEXT */}
+      <div className="text-center mb-16 px-4">
+        <motion.h2 
+          className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.85] mb-8 dark:text-white text-black"
+        >
+          COMING <br /> SOON
+        </motion.h2>
+
+        <div className="inline-flex items-center gap-2 bg-purple-600 text-white px-5 py-2 rounded-full text-xs md:text-sm font-black uppercase tracking-widest mb-4">
+          <Calendar size={16} />
+          Planning an Event?
+        </div>
+        <p className="text-zinc-500 dark:text-zinc-400 font-medium text-lg italic">
+          Reach out via our socials below.
+        </p>
+      </div>
+
+      {/* 4. RESPONSIVE BENTO GRID */}
+      <div className="max-w-4xl w-full grid grid-cols-2 md:grid-cols-4 gap-4">
+        
+        {/* Instagram */}
+        <div className="col-span-2">
+          <SocialCard 
+            href="#" 
+            icon={Instagram} 
+            label="Instagram" 
+            bgColor="bg-gradient-to-br from-[#833ab4] via-[#fd1d1d] to-[#fcb045]" 
+          />
+        </div>
+
+        {/* TikTok - Forced White Content */}
+        <SocialCard 
+            href="#" 
+            icon={Video} 
+            label="TikTok" 
+            bgColor="bg-zinc-950" 
+            textColor="text-white!" 
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+
+        <SocialCard 
+            href="#" 
+            icon={MessageCircle} 
+            label="WhatsApp" 
+            bgColor="bg-[#25D366]" 
+        />
+        
+        <SocialCard 
+            href="#" 
+            icon={Ghost} 
+            label="Snapchat" 
+            bgColor="bg-[#FFFC00]" 
+            textColor="text-black!" 
+        />
+
+        {/* Threads - Forced White Content */}
+        <SocialCard 
+            href="#" 
+            icon={AtSign} 
+            label="Threads" 
+            bgColor="bg-zinc-900" 
+            textColor="text-white!" 
+        />
+
+        <SocialCard 
+            href="#" 
+            icon={Youtube} 
+            label="YouTube" 
+            bgColor="bg-[#FF0000]" 
+        />
+
+        <SocialCard 
+            href="#" 
+            icon={Send} 
+            label="Facebook" 
+            bgColor="bg-[#1877F2]" 
+        />
+
+        {/* Email - FULL WIDTH ALWAYS */}
+        <div className="col-span-2 md:col-span-4 mt-2">
+          <SocialCard 
+            href="mailto:info@eventsdistrict.com" 
+            icon={Mail} 
+            label="Get in Touch via Email" 
+            bgColor="bg-zinc-100 dark:bg-zinc-800" 
+            textColor="text-zinc-800! dark:text-white!" 
+          />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+
+      <footer className="mt-20 pb-10 text-[10px] font-bold tracking-[0.3em] uppercase opacity-30 dark:text-white text-black text-center">
+        © 2026 Events District
+      </footer>
+    </main>
   );
 }

@@ -1,26 +1,38 @@
 @import "tailwindcss";
 
+@config "../tailwind.config.js"; /* This forces Tailwind to read your config file */
+
+@theme {
+  /* This defines your colors so the toggle works */
+  --color-background: white;
+  --color-foreground: #171717;
+  
+  --variant-dark: .dark &; 
+}
+
+/* 1. Default Light Mode */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #111827;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* 2. Manual Dark Mode (Triggered by your button) */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* 3. Apply styles to the page */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s ease;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* 4. Kill the blue links forever */
+a {
+  text-decoration: none !important;
+  color: inherit !important;
 }
