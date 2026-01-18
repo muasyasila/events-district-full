@@ -6,11 +6,38 @@ import {
   Mail, Video, Moon, Sun, Calendar, AtSign 
 } from "lucide-react";
 
-// Updated SocialCard to accept a custom text color class
+// 1. WhatsApp Bubble Component (Defined outside for better performance)
+const WhatsAppBubble = () => {
+  return (
+    <motion.a
+      href="https://wa.me/+254768842000"
+      target="_blank"
+      initial={{ scale: 0, opacity: 0, y: 20 }}
+      animate={{ scale: 1, opacity: 1, y: 0 }}
+      transition={{ delay: 2, type: "spring", stiffness: 260, damping: 20 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      className="fixed bottom-6 left-6 z-[100] flex items-center gap-3 bg-white dark:bg-zinc-900 border border-black/10 dark:border-white/10 p-2 pr-6 rounded-full shadow-2xl cursor-pointer group"
+    >
+      <div className="relative">
+        <div className="bg-[#25D366] p-3 rounded-full text-white shadow-lg">
+          <MessageCircle size={24} fill="currentColor" />
+        </div>
+        <span className="absolute top-0 right-0 block h-3 w-3 rounded-full bg-green-500 ring-2 ring-white dark:ring-zinc-900 animate-pulse" />
+      </div>
+      
+      <div className="flex flex-col">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Ask us anything</span>
+        <span className="text-sm font-black text-black dark:text-white">Chat with an Expert</span>
+      </div>
+    </motion.a>
+  );
+};
+
+// 2. Social Card Component
 const SocialCard = ({ href, icon: Icon, label, bgColor, textColor = "text-white", className = "" }: any) => {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
-  // This handles the "Magnetic" movement
   const onMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -18,22 +45,18 @@ const SocialCard = ({ href, icon: Icon, label, bgColor, textColor = "text-white"
     setRotate({ x: y * -20, y: x * 20 });
   };
 
-  const onMouseLeave = () => setRotate({ x: 0, y: 0 });
-
   return (
     <motion.a
       href={href}
       target="_blank"
       onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
+      onMouseLeave={() => setRotate({ x: 0, y: 0 })}
       animate={{ rotateX: rotate.x, rotateY: rotate.y }}
       whileTap={{ scale: 0.95 }}
-      style={{ perspective: 1000 }} // Important for 3D depth
+      style={{ perspective: 1000 }}
       className={`flex flex-col items-center justify-center p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] ${bgColor} ${textColor} shadow-2xl transition-all border border-black/5 dark:border-white/10 ${className}`}
     >
-      <motion.div
-        animate={{ y: rotate.x * 0.5, x: rotate.y * 0.5 }} // Icon moves slightly with the tilt
-      >
+      <motion.div animate={{ y: rotate.x * 0.5, x: rotate.y * 0.5 }}>
         <Icon size={32} strokeWidth={2.5} className={textColor} />
       </motion.div>
       <span className={`mt-3 font-black text-xs md:text-sm uppercase tracking-[0.2em] text-center ${textColor}`}>
@@ -43,6 +66,7 @@ const SocialCard = ({ href, icon: Icon, label, bgColor, textColor = "text-white"
   );
 };
 
+// 3. Main Page Component
 export default function ComingSoon() {
   const [darkMode, setDarkMode] = useState(true);
 
@@ -54,7 +78,7 @@ export default function ComingSoon() {
   return (
     <main className="relative min-h-screen w-full flex flex-col items-center py-12 px-4 md:px-6 bg-transparent transition-colors duration-500">
       
-      {/* 1. DARK MODE TOGGLE */}
+      {/* Dark Mode Toggle */}
       <div className="fixed top-6 right-6 z-50">
         <button 
           onClick={() => setDarkMode(!darkMode)}
@@ -64,7 +88,7 @@ export default function ComingSoon() {
         </button>
       </div>
 
-      {/* 2. CENTERED LOGO - Adaptive Colors */}
+      {/* Logo */}
       <motion.div 
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -75,147 +99,52 @@ export default function ComingSoon() {
         </h1>
       </motion.div>
 
-      {/* 3. HERO TEXT */}
+      {/* Hero Section */}
       <div className="text-center mb-16 px-4">
-        <motion.h2 
-          className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.85] mb-8 dark:text-white text-black"
-        >
+        <motion.h2 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.85] mb-8 dark:text-white text-black">
           COMING <br /> SOON
         </motion.h2>
 
         <motion.div 
-  animate={{ 
-    scale: [1, 1.05, 1],
-    boxShadow: [
-      "0px 0px 0px rgba(147, 51, 234, 0)", 
-      "0px 0px 20px rgba(147, 51, 234, 0.5)", 
-      "0px 0px 0px rgba(147, 51, 234, 0)"
-    ] 
-  }}
-  transition={{ 
-    duration: 2, 
-    repeat: Infinity, 
-    ease: "easeInOut" 
-  }}
-  className="inline-flex items-center gap-2 bg-purple-600 text-white px-5 py-2 rounded-full text-xs md:text-sm font-black uppercase tracking-widest mb-4 cursor-default"
->
-  <Calendar size={16} />
-  Planning an Event?
-</motion.div>
-        <p className="text-zinc-500 dark:text-zinc-400 font-medium text-lg italic">
-          Reach out via our socials below.
-        </p>
+          animate={{ scale: [1, 1.05, 1], boxShadow: ["0px 0px 0px rgba(147,51,234,0)", "0px 0px 20px rgba(147,51,234,0.5)", "0px 0px 0px rgba(147,51,234,0)"] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="inline-flex items-center gap-2 bg-purple-600 text-white px-5 py-2 rounded-full text-xs md:text-sm font-black uppercase tracking-widest mb-4 cursor-default"
+        >
+          <Calendar size={16} /> Planning an Event?
+        </motion.div>
+        <p className="text-zinc-500 dark:text-zinc-400 font-medium text-lg italic">Reach out via our socials below.</p>
       </div>
 
-      {/* 4. RESPONSIVE BENTO GRID */}
+      {/* Bento Grid */}
       <div className="max-w-4xl w-full grid grid-cols-2 md:grid-cols-4 gap-4">
-        
-        {/* Instagram */}
         <div className="col-span-2">
-          <SocialCard 
-            href="#" 
-            icon={Instagram} 
-            label="Instagram" 
-            bgColor="bg-gradient-to-br from-[#833ab4] via-[#fd1d1d] to-[#fcb045]" 
-          />
+          <SocialCard href="#" icon={Instagram} label="Instagram" bgColor="bg-gradient-to-br from-[#833ab4] via-[#fd1d1d] to-[#fcb045]" />
         </div>
-
-        {/* TikTok - Forced White Content */}
-        <SocialCard 
-            href="#" 
-            icon={Video} 
-            label="TikTok" 
-            bgColor="bg-zinc-950" 
-            textColor="text-white!" 
-        />
-
-        <SocialCard 
-            href="#" 
-            icon={MessageCircle} 
-            label="WhatsApp" 
-            bgColor="bg-[#25D366]" 
-        />
-        
-        <SocialCard 
-            href="#" 
-            icon={Ghost} 
-            label="Snapchat" 
-            bgColor="bg-[#FFFC00]" 
-            textColor="text-black!" 
-        />
-
-        {/* Threads - Forced White Content */}
-        <SocialCard 
-            href="#" 
-            icon={AtSign} 
-            label="Threads" 
-            bgColor="bg-zinc-900" 
-            textColor="text-white!" 
-        />
-
-        <SocialCard 
-            href="#" 
-            icon={Youtube} 
-            label="YouTube" 
-            bgColor="bg-[#FF0000]" 
-        />
-
-        <SocialCard 
-            href="#" 
-            icon={Send} 
-            label="Facebook" 
-            bgColor="bg-[#1877F2]" 
-        />
-
-        {/* Email - FULL WIDTH ALWAYS */}
+        <SocialCard href="#" icon={Video} label="TikTok" bgColor="bg-zinc-950" textColor="text-white!" />
+        <SocialCard href="#" icon={MessageCircle} label="WhatsApp" bgColor="bg-[#25D366]" />
+        <SocialCard href="#" icon={Ghost} label="Snapchat" bgColor="bg-[#FFFC00]" textColor="text-black!" />
+        <SocialCard href="#" icon={AtSign} label="Threads" bgColor="bg-zinc-900" textColor="text-white!" />
+        <SocialCard href="#" icon={Youtube} label="YouTube" bgColor="bg-[#FF0000]" />
+        <SocialCard href="#" icon={Send} label="Facebook" bgColor="bg-[#1877F2]" />
         <div className="col-span-2 md:col-span-4 mt-2">
-          <SocialCard 
-            href="mailto:info@eventsdistrict.com" 
-            icon={Mail} 
-            label="Get in Touch via Email" 
-            bgColor="bg-zinc-100 dark:bg-zinc-800" 
-            textColor="text-zinc-800! dark:text-white!" 
-          />
+          <SocialCard href="mailto:info@eventsdistrict.com" icon={Mail} label="Get in Touch via Email" bgColor="bg-zinc-100 dark:bg-zinc-800" textColor="text-zinc-800! dark:text-white!" />
         </div>
       </div>
 
+      {/* Footer */}
       <footer className="mt-20 pb-10 text-[10px] font-bold tracking-[0.3em] uppercase opacity-30 dark:text-white text-black text-center">
         © 2026 Events District
       </footer>
-      {/* Background Layer: Blobs and Grain */}
+
+      {/* Background Extras */}
       <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none bg-white dark:bg-[#0a0a0a]">
-        {/* Top Left Purple Blob */}
-        <motion.div
-          animate={{
-            x: [-40, 40, -40],
-            y: [-40, 40, -40],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-[10%] -left-[10%] w-[70%] h-[70%] bg-purple-600/30 dark:bg-purple-900/40 rounded-full blur-[120px]"
-        />
-
-        {/* Bottom Right Blue Blob */}
-        <motion.div
-          animate={{
-            x: [40, -40, 40],
-            y: [40, -40, 40],
-            scale: [1, 1.3, 1],
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-[10%] -right-[10%] w-[70%] h-[70%] bg-blue-600/20 dark:bg-blue-900/30 rounded-full blur-[150px]"
-        />
-
-        {/* Film Grain Texture */}
-       {/* Film Grain Texture Overlay */}
-<div 
-  className="fixed inset-0 z-[60] pointer-events-none opacity-[0.04] dark:opacity-[0.07] mix-blend-overlay"
-  style={{ 
-    backgroundImage: `url('https://grainy-gradients.vercel.app/noise.svg')`,
-    filter: 'contrast(120%) brightness(120%)'
-  }}
-></div>
+        <motion.div animate={{ x: [-40, 40, -40], y: [-40, 40, -40], scale: [1, 1.2, 1] }} transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }} className="absolute -top-[10%] -left-[10%] w-[70%] h-[70%] bg-purple-600/30 dark:bg-purple-900/40 rounded-full blur-[120px]" />
+        <motion.div animate={{ x: [40, -40, 40], y: [40, -40, 40], scale: [1, 1.3, 1] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }} className="absolute -bottom-[10%] -right-[10%] w-[70%] h-[70%] bg-blue-600/20 dark:bg-blue-900/30 rounded-full blur-[150px]" />
+        <div className="fixed inset-0 z-[60] pointer-events-none opacity-[0.04] dark:opacity-[0.07] mix-blend-overlay" style={{ backgroundImage: `url('https://grainy-gradients.vercel.app/noise.svg')`, filter: 'contrast(120%) brightness(120%)' }} />
       </div>
+
+      {/* CALLING THE WHATSAPP BUBBLE COMPONENT HERE */}
+      <WhatsAppBubble />
     </main>
   );
 }
