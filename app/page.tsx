@@ -6,7 +6,7 @@ import {
   Mail, Video, Moon, Sun, Calendar, AtSign 
 } from "lucide-react";
 
-// 1. WhatsApp Bubble Component (Defined outside for better performance)
+// 1. WhatsApp Bubble Component
 const WhatsAppBubble = () => {
   return (
     <motion.a
@@ -34,7 +34,47 @@ const WhatsAppBubble = () => {
   );
 };
 
-// 2. Social Card Component
+// 2. Glassmorphism Waitlist Component
+const WaitlistInput = () => {
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert(`Success! We'll notify ${email} soon.`);
+    setEmail("");
+  };
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5 }}
+      className="w-full max-w-md mx-auto mb-16 px-4"
+    >
+      <form onSubmit={handleSubmit} className="relative group">
+        <input
+          type="email"
+          required
+          placeholder="Join the VIP Waitlist..."
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-6 py-4 bg-white/10 dark:bg-black/20 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-2xl text-black dark:text-white placeholder:text-zinc-500 outline-none transition-all duration-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 shadow-2xl"
+        />
+        <button 
+          type="submit"
+          className="absolute right-2 top-2 bottom-2 px-6 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl transition-all active:scale-95 text-xs uppercase tracking-widest"
+        >
+          Join
+        </button>
+      </form>
+      <p className="text-[10px] text-zinc-500 uppercase tracking-[0.2em] mt-3 text-center">
+        Be the first to know when we launch
+      </p>
+    </motion.div>
+  );
+};
+
+// 3. Social Card Component
 const SocialCard = ({ href, icon: Icon, label, bgColor, textColor = "text-white", className = "" }: any) => {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
 
@@ -65,6 +105,8 @@ const SocialCard = ({ href, icon: Icon, label, bgColor, textColor = "text-white"
     </motion.a>
   );
 };
+
+// 4. Scrolling Ticker Component
 const ScrollingTicker = () => {
   const services = [
     "Corporate Events", "Weddings", "Private Parties", 
@@ -76,21 +118,12 @@ const ScrollingTicker = () => {
     <div className="w-full bg-black dark:bg-white overflow-hidden py-3 flex border-y border-purple-500/30">
       <motion.div
         animate={{ x: [0, -1000] }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          ease: "linear",
-        }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
         className="flex whitespace-nowrap gap-10"
       >
-        {/* We repeat the list twice for a seamless loop */}
         {[...services, ...services].map((service, index) => (
-          <span
-            key={index}
-            className="text-white dark:text-black font-black text-xs uppercase tracking-[0.4em] flex items-center"
-          >
-            {service}
-            <span className="ml-10 text-purple-500">✦</span>
+          <span key={index} className="text-white dark:text-black font-black text-xs uppercase tracking-[0.4em] flex items-center">
+            {service} <span className="ml-10 text-purple-500">✦</span>
           </span>
         ))}
       </motion.div>
@@ -98,7 +131,7 @@ const ScrollingTicker = () => {
   );
 };
 
-// 3. Main Page Component
+// 5. Main Page Component
 export default function ComingSoon() {
   const [darkMode, setDarkMode] = useState(true);
 
@@ -130,9 +163,11 @@ export default function ComingSoon() {
           EVENTS DISTRICT
         </h1>
       </motion.div>
-<div className="w-screen mb-12">
+
+      <div className="w-screen mb-12">
         <ScrollingTicker />
       </div>
+
       {/* Hero Section */}
       <div className="text-center mb-16 px-4">
         <motion.h2 className="text-6xl md:text-9xl font-black tracking-tighter leading-[0.85] mb-8 dark:text-white text-black">
@@ -148,6 +183,9 @@ export default function ComingSoon() {
         </motion.div>
         <p className="text-zinc-500 dark:text-zinc-400 font-medium text-lg italic">Reach out via our socials below.</p>
       </div>
+
+      {/* THE WAITLIST INPUT */}
+      <WaitlistInput />
 
       {/* Bento Grid */}
       <div className="max-w-4xl w-full grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -177,7 +215,6 @@ export default function ComingSoon() {
         <div className="fixed inset-0 z-[60] pointer-events-none opacity-[0.04] dark:opacity-[0.07] mix-blend-overlay" style={{ backgroundImage: `url('https://grainy-gradients.vercel.app/noise.svg')`, filter: 'contrast(120%) brightness(120%)' }} />
       </div>
 
-      {/* CALLING THE WHATSAPP BUBBLE COMPONENT HERE */}
       <WhatsAppBubble />
     </main>
   );
