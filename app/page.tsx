@@ -24,7 +24,8 @@ export default function ComingSoon() {
   }, [darkMode]);
 
   return (
-    <main className="relative min-h-screen w-full flex flex-col items-center py-6 px-4 md:px-6 bg-transparent transition-colors duration-500 overflow-x-hidden">
+    // Added pb-32 to create space for the WhatsApp bubble on mobile
+    <main className="relative min-h-screen w-full flex flex-col items-center pt-6 pb-32 px-4 md:px-6 bg-transparent transition-colors duration-500 overflow-x-hidden">
       
       {/* Dark Mode Toggle */}
       <div className="fixed top-6 right-6 z-50">
@@ -56,12 +57,10 @@ export default function ComingSoon() {
         <TimeGreeting />
         
         <div className="relative mt-2 mb-6 px-6">
-          {/* 1. Base Layer */}
           <h2 className="text-7xl md:text-9xl font-black tracking-tighter leading-[0.85] uppercase italic text-zinc-800/20 dark:text-white/10 select-none">
             COMING <br /> SOON
           </h2>
 
-          {/* 2. Shine Layer (Metallic Beam) */}
           <motion.h2 
             className="absolute inset-0 text-7xl md:text-9xl font-black tracking-tighter leading-[0.85] uppercase italic pointer-events-none select-none px-6"
             style={{
@@ -83,7 +82,6 @@ export default function ComingSoon() {
             COMING <br /> SOON
           </motion.h2>
 
-          {/* 3. Highlight Layer */}
           <motion.h2 
             className="absolute inset-0 text-7xl md:text-9xl font-black tracking-tighter leading-[0.85] uppercase italic text-black dark:text-white pointer-events-none select-none px-6"
             style={{
@@ -110,7 +108,6 @@ export default function ComingSoon() {
 
         <Countdown />
 
-        {/* --- TIGHTER GAP HERE (mt-4) --- */}
         <div className="mt-4 flex flex-col items-center">
           <motion.a 
             href="https://wa.me/254768842000"
@@ -149,11 +146,13 @@ export default function ComingSoon() {
         </div>
       </div>
 
-      <footer className="mt-auto pb-6 text-[10px] font-bold tracking-[0.3em] uppercase opacity-30 dark:text-white text-black text-center">
+      <footer className="mt-8 pb-6 text-[10px] font-bold tracking-[0.3em] uppercase opacity-30 dark:text-white text-black text-center">
         © 2026 Events District
       </footer>
 
       <BackgroundLayers />
+      
+      {/* Ensure this component has a high z-index and decent bottom spacing */}
       <WhatsAppBubble />
     </main>
   );
