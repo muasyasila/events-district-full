@@ -7,13 +7,13 @@ import {
 } from "lucide-react";
 
 // Components
-import SocialCard from "./components/SocialCard";
-import WhatsAppBubble from "./components/WhatsAppBubble";
-import ScrollingTicker from "./components/ScrollingTicker";
-import BackgroundLayers from "./components/BackgroundLayers";
-import TimeGreeting from "./components/TimeGreeting";
-import Countdown from "./components/Countdown";
-import { FacebookIcon, TikTokIcon, SnapchatIcon, InstagramIcon } from "./components/BrandIcons";
+import SocialCard from "./components/ui/SocialCard";
+import WhatsAppBubble from "./components/ui/WhatsAppBubble";
+import ScrollingTicker from "./components/ui/ScrollingTicker";
+import BackgroundLayers from "./components/layout/BackgroundLayers";
+import TimeGreeting from "./components/ui/TimeGreeting";
+import Countdown from "./components/ui/Countdown";
+import { FacebookIcon, TikTokIcon, SnapchatIcon, InstagramIcon } from "./components/shared/BrandIcons";
 
 export default function ComingSoon() {
   const [darkMode, setDarkMode] = useState(true);
